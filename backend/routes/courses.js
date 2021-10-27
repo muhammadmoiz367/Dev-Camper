@@ -11,6 +11,7 @@ const {
   updateCourse,
   deleteCourse,
 } = require('../controllers/courses');
+const { protectedRoute, authorize } = require('../middleware/auth');
 
 router
   .route('/')
@@ -21,8 +22,12 @@ router
     }),
     getCourses
   )
-  .post(createCourse);
+  .post(protectedRoute, authorize('publisher', 'admin'), createCourse);
 
-router.route('/:id').get(getCourse).put(updateCourse).delete(deleteCourse);
+router
+  .route('/:id')
+  .get(getCourse)
+  .put(protectedRoute, authorize('publisher', 'admin'), updateCourse)
+  .delete(protectedRoute, authorize('publisher', 'admin'), deleteCourse);
 
 module.exports = router;
