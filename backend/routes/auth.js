@@ -9,11 +9,13 @@ const {
   resetPassword,
   updateUser,
   updatePassword,
+  logoutUser,
 } = require('../controllers/auth');
 const { protectedRoute } = require('../middleware/auth');
 
 router.post('/register', registerUser);
 router.post('/login', loginUser);
+router.get('/logout', logoutUser)
 router.post('/forgotPassword', forgotPassword);
 router.put('/updateuser', protectedRoute, updateUser);
 router.put('/updatepassword', protectedRoute, updatePassword);

@@ -7,13 +7,15 @@ const User = require('../models/User');
 //protect route
 exports.protectedRoute = asyncHandler(async (req, res, next) => {
   let token;
+  //set token from headers
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
   }
-  // else if(req.cookies.token){
+  //set token from cookies
+  // else if(req.cookies.token){ 
   //     token=req.cookies.token
   // }
   console.log('token ', token);
